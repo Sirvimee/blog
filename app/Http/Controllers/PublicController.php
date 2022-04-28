@@ -12,7 +12,7 @@ class PublicController extends Controller
     }
 
     public function posts(){
-        $posts = Post::simplePaginate(12);
+        $posts = Post::paginate(12);
 
 //        dd($posts->toArray());
         return view('posts', compact('posts'));

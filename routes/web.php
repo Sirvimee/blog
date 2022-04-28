@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,5 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PublicController::class, 'home']); // Väljastab stringtekstina '\App\Http\Controllers\PublicController'
-Route::get('/posts', [PublicController::class, 'posts']); // Väljastab stringtekstina '\App\Http\Controllers\PublicController'
+Route::get('/', [PublicController::class, 'home']); // '\App\Http\Controllers\PublicController'
+Route::get('/posts', [PublicController::class, 'posts']); // '\App\Http\Controllers\PublicController'
+Route::get('/admin/posts', [PostController::class,'index'])->name('admin.posts.index');
+Route::get('/admin/posts/create', [PostController::class,'create'])->name('admin.posts.create');
+Route::post('/admin/posts', [PostController::class,'store'])->name('admin.posts.store');
