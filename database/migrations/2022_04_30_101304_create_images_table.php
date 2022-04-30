@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('body');
-            $table->timestamp('published_at')->nullable();
+            $table->string('path');
+//            $table->unsignedBigInteger('post_id');
+//            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreignIdFor(\App\Models\Post::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('images');
     }
 };

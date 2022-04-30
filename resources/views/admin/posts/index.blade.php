@@ -9,6 +9,7 @@
         <thead>
             <th>Id</th>
             <th>Title</th>
+            <th>Published At</th>
             <th>Created At</th>
             <th>Updated At</th>
             <th>Actions</th>
@@ -18,12 +19,17 @@
                 <tr>
                     <td>{{$post->id}}</td>
                     <td>{{$post->title}}</td>
+                    <td>{{$post->published_at ?? 'DRAFT'}}</td>
                     <td>{{$post->created_at}}</td>
                     <td>{{$post->updated_at}}</td>
                     <td>
                         <a class="btn btn-primary" href="">View</a>
-                        <a class="btn btn-warning" href="">Edit</a>
-                        <a class="btn btn-danger" href="">Delete</a>
+                        <a class="btn btn-warning" href="{{route('admin.posts.edit', ['post' => $post])}}">Edit</a>
+                        <input type="submit" class="btn btn-danger" value="Delete" form="delete-{{$post->id}}">
+                        <form action="{{route('admin.posts.destroy', ['post' => $post])}}" id="delete-{{$post->id}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                        </form>
                     </td>
                 </tr>
             @endforeach
@@ -31,6 +37,7 @@
         <tfoot>
             <th>Id</th>
             <th>Title</th>
+            <th>Published At</th>
             <th>Created At</th>
             <th>Updated At</th>
             <th>Actions</th>
