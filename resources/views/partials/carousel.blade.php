@@ -2,7 +2,7 @@
     <div class="carousel-inner">
         @foreach($images as $key => $image)
         <div class="carousel-item {{$key==0 ? 'active' : ''}}">
-            <img src="{{$image->path}}" class="d-block w-100" alt="...">
+            <img src="{{$image->url}}" class="d-block w-100" alt="...">
         </div>
         @endforeach
     </div>

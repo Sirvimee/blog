@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use App\Http\Requests\StoreImageRequest;
 use App\Http\Requests\UpdateImageRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -81,6 +82,7 @@ class ImageController extends Controller
      */
     public function destroy(Image $image)
     {
-        //
+        Storage::delete($image->path);
+        $image->delete();
     }
 }
