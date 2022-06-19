@@ -118,7 +118,7 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'follow','follower_id', 'user_id' , 'id', 'id', 'users');
     }
 
-    public function getAmFollowingAttribute(){
-        return $this->followers()->where('follower_id', \Auth::user()->id)->exists();
-    }
+//    public function getAmFollowingAttribute(){
+//        return $this->followers()->where('follower_id', \Auth::user()->id)->exists();
+//    }
 }

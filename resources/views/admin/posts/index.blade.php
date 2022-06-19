@@ -23,7 +23,7 @@
                     <td>{{$post->created_at}}</td>
                     <td>{{$post->updated_at}}</td>
                     <td>
-                        <a class="btn btn-primary" href="">View</a>
+                        <a class="btn btn-primary" href="{{route('post', ['post' => $post])}}">View</a>
                         <a class="btn btn-warning" href="{{route('admin.posts.edit', ['post' => $post])}}">Edit</a>
                         <input type="submit" class="btn btn-danger" value="Delete" form="delete-{{$post->id}}">
                         <form action="{{route('admin.posts.destroy', ['post' => $post])}}" id="delete-{{$post->id}}" method="POST">
