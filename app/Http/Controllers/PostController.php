@@ -8,6 +8,10 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -16,9 +20,9 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
-    public function index()
+    public function index(): View|Factory|Application
     {
         $posts = Auth::user()->posts()->paginate();
         return view('admin.posts.index', compact('posts'));
@@ -27,9 +31,9 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
-    public function create()
+    public function create(): View|Factory|Application
     {
         return view('admin.posts.create');
     }
@@ -37,10 +41,10 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePostRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param StorePostRequest $request
+     * @return RedirectResponse
      */
-    public function store(StorePostRequest $request)
+    public function store(StorePostRequest $request): RedirectResponse
     {
         $post = new Post($request->validated());
         $post->user()->associate(Auth::user());
@@ -63,10 +67,10 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @return void
      */
-    public function show(Post $post)
+    public function show(Post $post): void
     {
         //
     }
@@ -74,10 +78,10 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param Post $post
+     * @return Application|Factory|View
      */
-    public function edit(Post $post)
+    public function edit(Post $post): View|Factory|Application
     {
         return view('admin.posts.edit', compact('post'));
     }
@@ -85,11 +89,11 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePostRequest  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\RedirectResponse
+     * @param UpdatePostRequest $request
+     * @param Post $post
+     * @return RedirectResponse
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post): RedirectResponse
     {
         $post->fill($request->validated());
         if($request->has('publish')){
@@ -102,11 +106,11 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Post $post
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Post $post
+     * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post): RedirectResponse
     {
         if(Auth::user() === $post->user) {
             $post->delete();

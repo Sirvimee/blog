@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
@@ -20,10 +22,10 @@ Route::get('/posts', [PublicController::class, 'posts'])->name('posts'); // '\Ap
 Route::get('/posts/tag/{tag}', [PublicController::class, 'tag'])->name('tag');
 Route::get('/posts/{post}', [PublicController::class, 'post'])->name('post');
 Route::get('/users/{user}', [PublicController::class, 'user'])->name('user');
-Route::get('/users/{user}/follow', [\App\Http\Controllers\FollowController::class, 'follow'])->name('user.follow');
+Route::get('/users/{user}/follow', [FollowController::class, 'follow'])->name('user.follow');
 
 Route::middleware('auth')->group(function() {
-    Route::post('/posts/{post}', [\App\Http\Controllers\CommentController::class, 'store'])->name('post.comment');
+    Route::post('/posts/{post}', [CommentController::class, 'store'])->name('post.comment');
 
     Route::get('/admin/posts', [PostController::class,'index'])->name('admin.posts.index');
     Route::get('/admin/posts/create', [PostController::class,'create'])->name('admin.posts.create');

@@ -30,7 +30,6 @@
             </div>
         </div>
     @endforeach
-
 @endsection
 
 @push('js')
@@ -41,3 +40,5 @@
         })
     </script>
 @endpush
+
+

@@ -29,6 +29,7 @@ class PublicController extends Controller
         return view('post', compact('post'));
     }
     public function user(User $user){
-        return view('user', compact('user'));
+        $posts = $user->posts()->whereNotNull('published_at')->latest()->paginate(12);
+        return view('user',compact(['user','posts']));
     }
 }
