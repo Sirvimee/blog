@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/admin/posts/{post}/edit', [PostController::class,'edit'])->name('admin.posts.edit');
     Route::put('/admin/posts/{post}', [PostController::class,'update'])->name('admin.posts.update');
     Route::delete('/admin/posts/{post}', [PostController::class,'destroy'])->name('admin.posts.destroy');
+    Route::get('/admin/posts/{post}/view', [PostController::class,'view'])->name('admin.posts.view');
 });
 
 Auth::routes();

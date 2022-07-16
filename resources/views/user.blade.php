@@ -29,6 +29,7 @@
                 </p>
             @endif
         @endif
+        @if (Auth::check())
         <a href="{{route('user.follow', ['user' => $user])}}" class="btn btn-primary">
             @if($user->amFollowing)
                 Unfollow
@@ -36,12 +37,16 @@
                 Follow
             @endif
         </a>
+        @endif
 
-            <ul>
-                @foreach($user->followers as $follower)
-                    <li>{{$follower->name}}</li>
-                @endforeach
-            </ul>
+        <p class="text-muted">
+            <br>
+            <b>Followers:</b>
+            @forelse($user->followers as $follower)
+                {{$follower->name}} ;
+            @empty
+                No followers yet.
+            @endforelse
     </div>
 </div>
 

@@ -118,4 +118,10 @@ class PostController extends Controller
         }
         throw(new AuthorizationException());
     }
+
+    //Display the specified resource.
+    public function view(Post $post)
+    {
+        return view('admin.posts.view',compact('post'));
+    }
 }
